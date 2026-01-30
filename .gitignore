@@ -8,6 +8,7 @@ wheels/
 .ruff_cache
 .pytest_cache
 *$py.class
+.coverage
 
 # Local uv cache/settings
 .uv/
@@ -18,7 +19,7 @@ wheels/
 .env.production
 .env.dev
 
-# Virtual environments
+# Virtual environment
 .venv
 
 # OS

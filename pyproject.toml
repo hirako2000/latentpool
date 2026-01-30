@@ -22,8 +22,12 @@ dependencies = [
 dev = [
     "ipython>=9.9.0",
     "pre-commit>=4.5.1",
+    "pyright>=1.1.408",
     "pytest>=9.0.2",
+    "pytest-asyncio>=1.3.0",
+    "pytest-cov>=7.0.0",
     "pytest-ruff>=0.5",
+    "respx>=0.22.0",
     "ruff>=0.14.14",
 ]
 
@@ -39,22 +43,58 @@ package = true
 [tool.pytest.ini_options]
 testpaths = ["tests", "src"]
 python_files = ["test_*.py"]
-addopts = "-ra -v --ruff"
+addopts = "-ra -v --ruff --cov=src/latentpool --cov-report=term-missing --cov-report=html"
 filterwarnings = [
     "ignore::DeprecationWarning:torch_geometric.*",
     "ignore::DeprecationWarning:torch.jit.*",
+]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError"
 ]
 
 [tool.ruff]
 line-length = 88
 
 [tool.ruff.lint]
-# E: Error, F: Pyflakes, I: isort (import sorting), B: flake8-bugbear, C4: comprehensions
-select = ["E", "F", "I", "B", "C4", "W"]
 ignore = ["E501"] # Ignore line length violations, let's let the formatter handle it
+select = [
+    "F",   # Pyflakes for Logical errors
+    "I",   # isort for import sorting
+    "E",   # Pycodestyle Errors
+    "W",   # Pycodestyle Warnings
+    "B",   # flake8 Bugbear
+    "S",   # Bandit for common security patterns
+    "PL",  # Deep code smells
+    "C4",  # Micro analysis, comprehension
+    "C90", # McCabe Complexity - Macro view
+    "TID", # Disciplinarian
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10  # will warns if a function is too "complex" to follow
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"] # this rule bans asserts
+"conftest.py" = ["S101"]
 
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+
+[tool.pyright]
+# uv run pyright, no addopt because it can be slow
+venvPath = "."
+venv = ".venv"
+typeCheckingMode = "strict"
+include = ["src", "tests"] 
+reportMissingTypeStubs = false
 
 

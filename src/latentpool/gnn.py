@@ -32,7 +32,7 @@ class TransactionTrace(msgspec.Struct):
     action: TraceAction
     result: Optional[TraceResult] = None
     subtraces: int = 0
-    trace_address: List[int] = msgspec.field(name="traceAddress", default_factory=list)
+    trace_address: List[int] = msgspec.field(name="traceAddress", default=[])
     type: str = "call"
     error: Optional[str] = None
 

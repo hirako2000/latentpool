@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 import msgspec
 import pytest
 import torch
@@ -33,6 +35,7 @@ def test_trace_decoding():
 
     assert trace.action.from_address == "0x1234567890123456789012345678901234567890"
     assert trace.action.call_type == "call"
+    assert trace.result is not None
     assert trace.result.gas_used == "0x5208"
     assert trace.trace_address == []
 
@@ -63,3 +66,28 @@ def test_gnn_forward_pass():
 
 if __name__ == "__main__":
     pytest.main([__file__])
+
+def test_gnn_device_selection_mps(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setattr(torch.backends.mps, "is_available", lambda: True)
+    monkeypatch.setattr(torch.cuda, "is_available", lambda: False)
+
+    # We mock __init__ so it doesn't call self.to()
+    with patch.object(TransactionGraphModel, "__init__", return_value=None):
+        model = TransactionGraphModel(1, 1, 1)
+        assert model._get_best_device().type == "mps" # type: ignore[reportPrivateUsage]
+
+def test_gnn_device_selection_cuda(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setattr(torch.backends.mps, "is_available", lambda: False)
+    monkeypatch.setattr(torch.cuda, "is_available", lambda: True)
+
+    with patch.object(TransactionGraphModel, "__init__", return_value=None):
+        model = TransactionGraphModel(1, 1, 1)
+        assert model._get_best_device().type == "cuda" # type: ignore[reportPrivateUsage]
+
+def test_gnn_device_selection_cpu(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setattr(torch.backends.mps, "is_available", lambda: False)
+    monkeypatch.setattr(torch.cuda, "is_available", lambda: False)
+
+    with patch.object(TransactionGraphModel, "__init__", return_value=None):
+        model = TransactionGraphModel(1, 1, 1)
+        assert model._get_best_device().type == "cpu" # type: ignore[reportPrivateUsage]
