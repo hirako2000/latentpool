@@ -1,7 +1,7 @@
 # 🌊 LatentPool
 
 <div align="center">
-<img src="./img/logo.heic" alt="LatentPool Hero" width="50%">
+<img src="./img/logo.avif" alt="LatentPool Hero" width="50%">
   <br />
   <b>Hidden MEV Patterns in Mempools with Graph Neural Networks</b>
 </div>
