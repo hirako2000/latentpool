@@ -1,0 +1,31 @@
+# Python related clutter files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.ruff_cache
+.pytest_cache
+*$py.class
+
+# Local uv cache/settings
+.uv/
+
+# Potentially sensitive
+.env
+.environments
+.env.production
+.env.dev
+
+# Virtual environments
+.venv
+
+# OS
+.DS_Store
+
+# junk
+a.txt*
+junk/
+list.sh
+spit.sh

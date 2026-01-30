@@ -1,0 +1,60 @@
+[project]
+name = "latentpool"
+version = "0.0.1"
+description = "MEV Detection using Graph Neural Networks"
+authors = [{name = "Your Name", email = "hirako2000@gmail.com"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "httpx>=0.28.1",
+    "msgspec>=0.20.0",
+    "numpy>=2.4.1",
+    "pandas>=3.0.0",
+    "python-dotenv>=1.2.1",
+    "torch>=2.10.0",
+    "torch-geometric>=2.7.0",
+    "typer>=0.21.1",
+    "web3>=7.14.0",
+]
+
+[dependency-groups]
+dev = [
+    "ipython>=9.9.0",
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.2",
+    "pytest-ruff>=0.5",
+    "ruff>=0.14.14",
+]
+
+[project.scripts]
+latent = "latentpool.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/latentpool"]
+
+[tool.uv]
+package = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "src"]
+python_files = ["test_*.py"]
+addopts = "-ra -v --ruff"
+filterwarnings = [
+    "ignore::DeprecationWarning:torch_geometric.*",
+    "ignore::DeprecationWarning:torch.jit.*",
+]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+# E: Error, F: Pyflakes, I: isort (import sorting), B: flake8-bugbear, C4: comprehensions
+select = ["E", "F", "I", "B", "C4", "W"]
+ignore = ["E501"] # Ignore line length violations, let's let the formatter handle it
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+
