@@ -39,7 +39,7 @@ LatentPool detects Maximum Extractable Value (MEV) by analyzing transaction grap
 ## 🚀 Quick Start
 
 ### Installation
-The project uses [uv](https://github.com/astral-sh/uv) for the dev experience, you will also need python version >= 14.
+The project uses [uv](https://github.com/astral-sh/uv) for the dev experience, this also needs python version >= 3.14
 
 ```bash
 # Clone the repository
@@ -55,7 +55,7 @@ uv sync
 
 ```bash
 # Detect MEV in a specific block
-uv run latent detect --block 19000000
+uv run latent detect
 
 # Monitor mempool in real-time ?
 TODO
