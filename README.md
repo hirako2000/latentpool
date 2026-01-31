@@ -6,8 +6,6 @@
   <b>Hidden MEV Patterns in Mempools with Graph Neural Networks</b>
 </div>
 
-**Hidden MEV Patterns in Mempools with Graph Neural Networks**
-
 [![Python 3.14+](https://img.shields.io/badge/python-3.14+-blue.svg)](https://www.python.org/downloads/)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v0.json)](https://github.com/astral-sh/ruff)
@@ -16,22 +14,23 @@
 LatentPool detects Maximum Extractable Value (MEV) by analyzing transaction graphs with Graph Neural Networks (GNNs). It identifies complex cross-contract patterns without requiring bytecode analysis or ABIs.
 
 ## 📑 Table of Contents
-- [✨ Features](#features)
-- [🚀 Quick Start](#quick-start)
-- [🛠 How It Works](#how-it-works)
-- [📊 Performance Benchmark](#performance-benchmark)
-- [🏗 Project Structure](#project-structure)
-- [🥶 TODOs](#todos)
-- [🧪 Development](#development)
-- [📜 License](#license)
+- [✨ Features](#✨-features)
+- [🚀 Quick Start](#🚀-quick-start)
+- [🛠 How It Works](#🛠-how-it-works)
+- [📊 Performance Benchmark](#📊-performance-benchmark)
+- [🏗 Project Structure](#🏗-project-structure)
+- [🥶 TODOs](#🥶-todos)
+- [💻 Development](#💻-howto-development)
+- [🤓 Worklog](#🤓-worklog)
+- [⚖️ License](#⚖️-license)
 
 ---
 
 ## ✨ Features
 
 * **⚡ ABI-Free Detection:** Identifies MEV via latent graph topology—no contract knowledge required.
-* **🧠 Advanced GNNs:** Built-in support for **GraphSAGE**, **GAT**, and **GCN** architectures.
-* **🚀 Modern Engine:** Powered by `uv` for lightning-fast environment management and `Ruff` for linting.
+* **🧠 GNNs:** Built-in support for [GraphSAGE](https://snap.stanford.edu/graphsage/), [GAT](https://arxiv.org/abs/1710.10903), and **GCN** architectures.
+* **🚀 Modern dev flow:** Powered by `uv` for lightning-fast environment management and `Ruff` for linting.
 * **🍎 Apple Silicon Optimized:** Native **MPS (Metal Performance Shaders)** acceleration for M-series.
 * **📦 Grade:** Typed with `msgspec` for high-performance JS decoding and `pytest` for reliability, but experimental project.
 
@@ -47,9 +46,8 @@ The project uses [uv](https://github.com/astral-sh/uv) for the dev experience, t
 git clone https://github.com/hirako2000/latentpool
 cd latentpool
 
-# Sync environment (installs Python 3.14 & all dependencies)
+# Sync environment (installs all dependencies)
 uv sync
-
 ```
 
 ### Usage
@@ -73,7 +71,7 @@ LatentPool bypasses traditional simulation-based detection by treating the mempo
 3. GNN Inference: GraphSAGE layers aggregate neighborhood information to flag suspicious clusters.
 4. Hardware Acceleration: Tensors are automatically routed to **MPS (Metal)** (for now) or CUDA for sub-max latency.
 
-# TODOs
+# 🥶 TODOs
 
 Still a lot left to _do_.
 
@@ -81,27 +79,31 @@ Still a lot left to _do_.
 
 - [x] All UV
 - [x] Pytest with coverage report
+- [x] Static code analysis
 - [x] justfile for commands convenience
+- [x] Run benchmarks
 
 ### Quality Gates
 
 Using a somewhat _Strict_ toolchain to ensure code reliability:
-[x] Linting: `uv run ruff check` (Logical & Security analysis)
-[x] Static code analysis: `uv run pyright` (complexity and other logical checks)
-[x] Testing: `uv run pytest`
+- [x] Linting: `uv run ruff check` (Logical & Security analysis)
+- [x] Static code analysis: `uv run pyright` (complexity and other logical checks)
+- [x] Testing: `uv run pytest`
 
 100% coverage is a target, not a goal. Pyright set to Strict-mode, will see how long it lasts but so far it is useful. Disabled stub types check, even pytorch cannot do types right.
 
-## 📊 Performance Benchmark progress
+### 📊 Performance Benchmark
 
-- [ ] **Ingestion Latency:** Benchmark `msgspec`?
+- [x] **Ingestion Latency:** Benchmark `msgspec`
+- [x] **Multi round benchmark** to ensure warm up
 - [ ] **Graph Construction:** Profile CPU overhead of `torch_geometric.data.Data` creation.
 - [ ] **Inference Speed:** Track targets on MPS & CUDA, vs CPU.
 - [ ] **End-to-End:** Real-time mempool-to-prediction total latency.
 
 ### 🧪 Core Development progress and experimentations
-- [ ] Connection Pooling: Refactor `NodeProvider` to use a persistent `httpx.AsyncClient`.
-- [ ] Optimization: Could use `msgspec.Raw` to avoid double-encoding in RPC execution.
+
+- [x] Connection Pooling: Refactor `NodeProvider` to use a persistent `httpx.AsyncClient`.
+- [x] Optimization: Could use `msgspec.Raw` to avoid double-encoding in RPC execution.
 - [ ] Feature Engineering: attempt to implement the 14-key feature vectorization logic in some `core/` package.
 - [ ] Real-time Monitoring: Implement the `latent monitor` command.
 
@@ -117,11 +119,14 @@ src/latentpool/
 ├── schema.py      # High-performance msgspec data models
 ├── core/          # Graph construction & feature logic
 └── data/          # Blockchain data ingestion
+tests/
+├── test_%%%.py.   # unit test
+└── test_etc.py.   # etc...
 ```
 
 ---
 
-## 🧪 HOWTO Development
+## 💻 HOWTO Development
 
 Run the tests, which would also check for linting issues.
 
@@ -152,9 +157,12 @@ Available recipes:
 
 Adhere to what appears to be conventional in there. Make sure the tests pass and lint fix before committing.
 
-## 📜 License
+## 🤓 Worklog
+
+A [worklog.md](./worklog.md) is in there,  tracked most development sessions, what was done, learned, and challanges faced.
+
+## ⚖️ License
 
 **MIT License**. See `LICENSE` for more information.
-
 
 **Disclaimer:** *LatentPool is an experimental tool for MEV research. Use at your own risk.*

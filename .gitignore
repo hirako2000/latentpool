@@ -9,6 +9,7 @@ wheels/
 .pytest_cache
 *$py.class
 .coverage
+.benchmarks/
 
 # Local uv cache/settings
 .uv/

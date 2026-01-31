@@ -64,3 +64,33 @@ None, growing number of commands, solved by integrating a [justfile](https://git
 ### Next?
 
 May focus on `httpx` performance (connection pooling) and graph construction logic. Perhaps set up a benchmarking toolchain, as there will be much more to measure.
+
+
+## Session 3: Benchmarking facility 
+
+_2026-01-31_
+
+pytest has a benchmark extension, experimenting...
+
+### ✅ Done 
+
+Integrated, now running the check or tests will run the benchmark, default to 100 rounds for warm up and decent min/max median figure.
+
+- Optimized request as http handshakes are expensive. About 30% improvement on the ingestion benchmark just with that.
+- tried to optimize the json parsing, but it's only saving a few microseconds and make the code terribly ugly. So I gave up.
+
+### 🧠 Challenges
+
+None, except insisting to make some marginal performacne improvement on json parsing, was not worth it. 
+
+### 🚧 Struggles
+
+Unit testing code smell is very hard. Luckily I did not have to fix the tests as I dumped the optimization as unecessary
+
+### 🎯 Current Status
+
+Still 100% code coverage, now with benchmark, less than 1ms spent ingesting what will look like typical transactions from real mem pools.
+
+### Next?
+
+I don't know. I guess it's time to make progress on the GNN, data engineering.

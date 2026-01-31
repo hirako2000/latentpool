@@ -8,16 +8,6 @@ import respx
 from latentpool.provider import NodeProvider
 
 
-@pytest.fixture
-def url() -> str:
-    return "http://localhost:8545"
-
-
-@pytest.fixture
-def provider(url: str) -> NodeProvider:
-    return NodeProvider(url)
-
-
 @pytest.mark.anyio
 async def test_node_provider_trace_transaction(url: str, provider: NodeProvider):
     """
@@ -109,3 +99,27 @@ async def test_node_provider_empty_result(url: str, provider: NodeProvider):
         traces = await provider.get_transaction_trace("0xabc")
 
         assert traces == []
+
+@pytest.mark.anyio
+async def test_node_provider_connection_persistence(url: str, provider: NodeProvider):
+    """
+    Verifies that the provider uses the exact same client instance across calls.
+    """
+    mock_response: Dict[str, Any] = {"jsonrpc": "2.0", "id": 1, "result": []}
+
+    initial_client_id = id(provider.client)
+
+    with respx.mock:
+        respx.post(url).mock(return_value=httpx.Response(200, json=mock_response))
+
+        await provider.get_block_traces(1)
+
+        # Intermediate check: ensure it's still open and the same instance
+        assert id(provider.client) == initial_client_id
+        assert provider.client.is_closed is False
+
+        await provider.get_block_traces(2)
+
+        # id() must still match, proving a new AsyncClient was never instantiated
+        assert id(provider.client) == initial_client_id
+        assert provider.client.is_closed is False

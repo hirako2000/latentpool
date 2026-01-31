@@ -19,7 +19,7 @@ analysis:
 
 # Run the test suite with coverage
 test *args:
-    uv run pytest {{args}}
+    uv run pytest  {{args}} --benchmark-min-rounds=100
 
 # Install/Sync dependencies
 setup:
