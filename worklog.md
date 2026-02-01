@@ -77,3 +77,20 @@ _Profiling aspects:
            | (GraphSAGE Inference)
            |  Warm-up: 100 rounds\
 ```
+
+### dvc and hugging face
+
+_2026-02-02_: Session 4
+
+There is the need to track datasets, and host them. Opting for DVC for versioningr and huggingface for hosting datasets, and the model weights.
+
+Also spent some times revisiting the current doc, added separate documents for the dvc and huggingface aspects, also a good overview on the data engineering steps intended for reproducibility and traceability. Mentioned xAI.
+
+Aded unit tests to cover the boilerplate cli, added some preliminary code for pulling block info from some archive done
+Alsy a hydrator class to get started with data processing.
+
+I didn't test any of these, added a full suite though to validate the logic is correct
+
+Now have a data_config.py file, managed .env file as I will need to hook the data preparation process with Alchemy or infura.
+
+Added a CI workflow to perform static code analysis and run all the tests in a separate environment.
