@@ -1,96 +1,79 @@
-# 📓 Development Worklog
+## 📓 Development Worklog
 
-## Session 1: Setup
+### Foundation
+_2026-01-29_: Session 1
 
-_2026-01-30_
+Setting up the project with `uv`. The design will grow, starting with a `NodeProvider` utilizing `msgspec` for JSON-RPC decoding. For processing Ethereum traces at scale without the performance penalties typical of standard JSON libraries.
 
-### ✅ Done
+Defined Parity-style structures using `msgspec.Struct`. This provides a speed advantage over Pydantic for the upcoming real-time mempool data.
+**GNN Scaffolding:** Initialized the `TransactionGraphModel` with GraphSAGE. Will deal with GPU later.
 
-The project already has a solid set up.
+###  System Hardening
 
-- **Environment Setup:** Initialized the project using `uv` with Python 3.14. Configured `pyproject.toml` with core dependencies (`torch`, `torch-geometric`, `msgspec`, `httpx`).
-- **Project Structure:** Established the `src/latentpool` layout and defined the initial CLI entry points using `typer`.
-- **Provider Implementation:** Created the `NodeProvider` class to handle JSON-RPC communication with Ethereum nodes, specifically targeting `trace_transaction` and `trace_block`.
-- **GNN Scaffolding:** Implemented a base `TransactionGraphModel` using `GraphSAGE` layers to define the expected input/output tensor shapes.
-- **Initial Testing:** Set up `pytest` and `respx` for mocking RPC calls. Created `test_provider.py` to verify data ingestion logic.
-- **Branding:** Created the `README.md` with the project vision, hero image, and feature roadmap.
-- **pytest/ruff**: making sure to have those working from the get go.
+_2026-01-30_: Session 2
 
-### 🧠 Challenges
+Developer UX and reliability. Added `pyright` in strict mode to catch poorly defined type early. Managing strict types alongside libraries like `torch_geometric` required a balanced approach: silencing external library stubs while maintaining high internal standards.
 
-I don't know what to say, Python still feels sneaky. Nothing took too long to address.
+Refactored device selection logic to be fully testable. Using `unittest.mock.patch` allowed me to verify hardware routing without needing specific physical drivers during CI.
+Added a `justfile` to consolidate commands. This abstracts away the verbosity of the `uv` toolchain.
 
-- **Python 3.14 Compatibility:** Navigated the early-stage support for 3.14, ensuring `uv` correctly managed the experimental toolchain.
-- **JSON-RPC Complexity:** Deciphered some parity trace format to ensure the `msgspec` structs correctly mapped hex strings to obj.
-- **Mocking Strategy:** Decided on `respx` for HTTP mocking early on to avoid hitting real nodes during the initial phases.
+Design so far:
 
-### 🚧 Struggles
-- **Dependency Hell:** Balancing the specific versions of `torch` and `torch-geometric` that play nice, but then figured it didn't like python 3.13. Moved to 3.14 
+```text
+    [ Ethereum Node / Archive API ]
+           |
+           | (JSON-RPC: trace_block)
+           v
+    [ NodeProvider ] ----------------> [ msgspec Decoder ]
+           |                                  |
+           | (Persistent Async Connection)    | (Strict Type Mapping)
+           v                                  v
+    [ Feature Vectorizer ] <---------- [ TransactionTrace ]
+           |
+           | (Graph Construction)
+           v
+    [ torch_geometric.Data ]
+           |
+           | (Tensor Routing: MPS/CUDA/CPU)
+           v
+    [ TransactionGraphModel ] -------> [ MEV Prediction ]
+```
 
-### 🎯 Status
+### Perf Profiling
 
-- Basic "Hello World" CLI to see things running.
-- Able to fetch and decode transaction traces in a test environment.
-- GNN architecture drafted but not yet trained.
+_2026-01-31_: Session 3
 
-### Next?
-
-Static code analysis, improve test coverage, get GPU accessleration (metal/MPS).
-
-## Session 2: Some hardening
-
-_2026-01-30_
-
-### ✅ Done
-- **Static Analysis:** Integrated `pyright` in `strict` mode.
-- **Testing:** Achieved 100% code coverage across `gnn.py` and `provider.py`.
-- **Hardware Abstraction:** Implemented and tested conditional device routing (MPS/CUDA/CPU).
-- **Orchestration:** Integrated `justfile` for a unified dev workflow.
-- **Refactoring:** Cleaned up `provider.py` with `typing.cast` and `msgspec` optimized decoders.
-
-### 🧠 Challenges
-- **Strict Typing vs. Libraries:** Encountered `reportMissingTypeStubs` with `torch_geometric`. Went with a balance of strictness by silencing noisy library stubs while keeping internal logic tight.
-- **Hardware Mocking:** Faced `AssertionError` when mocking CUDA availability. Learned that PyTorch's "Lazy Init" requires mocking `__init__` or using `unittest.mock.patch` to test hardware-logic without hardware drivers.
-- **Msgspec Factory:** Debugged `default_factory=list` in `msgspec.Struct`, resolved by using `default=[]` to satisfy Pyright's generic inference.
-
-### 🚧 Struggles
-
-None, growing number of commands, solved by integrating a [justfile](https://github.com/casey/just)
-
-### 🎯 Current Status
-
-100% Coverage, 0 Linting errors, 0 Type errors.
-
-### Next?
-
-May focus on `httpx` performance (connection pooling) and graph construction logic. Perhaps set up a benchmarking toolchain, as there will be much more to measure.
+Need to measure latency. Added `pytest-benchmark`, already seeing some overhead with the HTTP handshake overhead rather than data parsing.
 
 
-## Session 3: Benchmarking facility 
+Added **Connection Pooling**. Refactored the provider to use a persistent `httpx.AsyncClient`. This change reduced ingestion latency by approximately 30% by reusing TCP connections.
 
-_2026-01-31_
+I explored deep micro-optimizations for JSON parsing but ultimately discarded them. The marginal gains did not justify the increased code complexity.
 
-pytest has a benchmark extension, experimenting...
+_Profiling aspects:
 
-### ✅ Done 
-
-Integrated, now running the check or tests will run the benchmark, default to 100 rounds for warm up and decent min/max median figure.
-
-- Optimized request as http handshakes are expensive. About 30% improvement on the ingestion benchmark just with that.
-- tried to optimize the json parsing, but it's only saving a few microseconds and make the code terribly ugly. So I gave up.
-
-### 🧠 Challenges
-
-None, except insisting to make some marginal performacne improvement on json parsing, was not worth it. 
-
-### 🚧 Struggles
-
-Unit testing code smell is very hard. Luckily I did not have to fix the tests as I dumped the optimization as unecessary
-
-### 🎯 Current Status
-
-Still 100% code coverage, now with benchmark, less than 1ms spent ingesting what will look like typical transactions from real mem pools.
-
-### Next?
-
-I don't know. I guess it's time to make progress on the GNN, data engineering.
+```text
+[ Ethereum Node / Archive API ]
+           |
+           | (JSON-RPC: trace_block)
+           |  Latency: ~30% reduction via connection pooling
+           v
+    [ NodeProvider ] ----------------> [ msgspec Decoder ]
+           |                                  |
+           | (Persistent AsyncClient)         | (Pre-compiled Type Decoder)
+           |  Handshake reuse: OK             | Parsing: < 1ms overhead
+           v                                  v
+    [ Feature Vectorizer ] <---------- [ TransactionTrace ]
+           |
+           | (Graph Construction)
+           v
+    [ torch_geometric.Data ]
+           |
+           | (Hardware Routing)
+           |  Auto-dispatch: MPS (Metal) or CPU
+           v
+    [ TransactionGraphModel ] -------> [ MEV Prediction ]
+           |
+           | (GraphSAGE Inference)
+           |  Warm-up: 100 rounds\
+```

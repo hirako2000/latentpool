@@ -6,12 +6,44 @@
   <b>Hidden MEV Patterns in Mempools with Graph Neural Networks</b>
 </div>
 
-[![Python 3.14+](https://img.shields.io/badge/python-3.14+-blue.svg)](https://www.python.org/downloads/)
-[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v0.json)](https://github.com/astral-sh/ruff)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<br/>
 
 LatentPool detects Maximum Extractable Value (MEV) by analyzing transaction graphs with Graph Neural Networks (GNNs). It identifies complex cross-contract patterns without requiring bytecode analysis or ABIs.
+
+<!-- [![Python 3.14+](https://img.shields.io/badge/python-3.14+-blue.svg?style=for-the-badge)](https://www.python.org/downloads/)
+![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
+![PyTorch Geometric](https://img.shields.io/badge/PyTorch%20Geometric-%233C2179.svg?style=for-the-badge&logo=pyg&logoColor=white)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json&style=for-the-badge)](https://github.com/astral-sh/uv)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v0.json&style=for-the-badge)](https://github.com/astral-sh/ruff)
+<br/>
+[![Codacy Badge](https://img.shields.io/codacy/grade/6f5fd50cc2d2480b876efa6d8223c71e?style=for-the-badge)](https://app.codacy.com/gh/hirako2000/latentpool/dashboard)
+[![Bandit Security Scan](https://img.shields.io/github/actions/workflow/status/hirako2000/latentpool/bandit.yml?branch=master&label=CI&style=for-the-badge)](https://github.com/hirako2000/latentpool/actions/workflows/bandit.yml)
+[![security: bandit](https://img.shields.io/badge/security-bandit-green.svg?style=for-the-badge)](https://github.com/PyCQA/bandit)
+![Coverage](https://raw.githubusercontent.com/hirako2000/latentpool/badges/coverage.svg?style=for-the-badge)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT) -->
+
+<div align="center">
+  <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.14+-blue.svg?style=for-the-badge" alt="Python 3.14+">
+  </a>
+  <a href="https://pytorch.org/">
+  <img src="https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white" alt="PyTorch">
+  </a>
+  <a href="https://pytorch-geometric.readthedocs.io/">
+  <img src="https://img.shields.io/badge/PyTorch%20Geometric-%233C2179.svg?style=for-the-badge&logo=pyg&logoColor=white" alt="PyTorch Geometric">
+  </a>
+  <a href="https://github.com/astral-sh/uv"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json&style=for-the-badge" alt="uv">
+  </a>
+  <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v0.json&style=for-the-badge" alt="Ruff">
+  </a>
+</div>
+
+<div align="center">
+  <a href="https://app.codacy.com/gh/hirako2000/latentpool/dashboard"><img src="https://img.shields.io/codacy/grade/6f5fd50cc2d2480b876efa6d8223c71e?style=for-the-badge" alt="Codacy Grade"></a>
+  <a href="https://github.com/hirako2000/latentpool/actions/workflows/bandit.yml"><img src="https://img.shields.io/github/actions/workflow/status/hirako2000/latentpool/bandit.yml?branch=master&label=CI&style=for-the-badge" alt="CI Status"></a>
+  <!-- <img src="https://raw.githubusercontent.com/hirako2000/latentpool/badges/coverage.svg" alt="Coverage">-->
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License: MIT"></a>
+</div>
+
 
 ## 📑 Table of Contents
 - [✨ Features](#✨-features)
@@ -124,7 +156,22 @@ tests/
 └── test_etc.py.   # etc...
 ```
 
----
+## 🧠 Training
+
+Uses reproducible training pipeline.
+
+#### Data and model Hosting
+
+Datasets are versioned using **DVC** and hosted alongside our model weights on **Hugging Face**. Detailed instructions on dataset pulls and model uploads can be found in the [Hugging Face Guide](./docs/dvc-huggingface.md).
+* **Execution:**
+```bash
+# Execute a training run
+uv run latent train --model SAGE --epochs 40
+```
+
+#### Training
+
+Graph Construction: Transactions are converted into directed graphs of state changes. Detailed pipeline logic is documented in [Data Engineering](./docs/data-engineering.md).
 
 ## 💻 HOWTO Development
 
