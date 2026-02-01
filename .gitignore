@@ -9,7 +9,14 @@ wheels/
 .pytest_cache
 *$py.class
 .coverage
+coverage.json
 .benchmarks/
+
+# DVC local-only data and cache
+/data/raw/
+/data/processed/
+.dvc/cache/
+.dvc/tmp/
 
 # Local uv cache/settings
 .uv/
@@ -19,6 +26,8 @@ wheels/
 .environments
 .env.production
 .env.dev
+
+
 
 # Virtual environment
 .venv

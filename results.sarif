@@ -16,23 +16,23 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-02-01T00:27:24Z"
+          "endTimeUtc": "2026-02-01T18:14:00Z"
         }
       ],
       "properties": {
         "metrics": {
           "_totals": {
-            "loc": 358,
+            "loc": 581,
             "nosec": 0,
             "skipped_tests": 0,
             "SEVERITY.UNDEFINED": 0,
             "CONFIDENCE.UNDEFINED": 0,
-            "SEVERITY.LOW": 19,
+            "SEVERITY.LOW": 43,
             "CONFIDENCE.LOW": 0,
             "SEVERITY.MEDIUM": 0,
             "CONFIDENCE.MEDIUM": 0,
             "SEVERITY.HIGH": 0,
-            "CONFIDENCE.HIGH": 19
+            "CONFIDENCE.HIGH": 43
           },
           "./main.py": {
             "loc": 4,
@@ -48,7 +48,46 @@
             "CONFIDENCE.HIGH": 0
           },
           "./src/latentpool/cli.py": {
-            "loc": 28,
+            "loc": 30,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 0
+          },
+          "./src/latentpool/configs/data_config.py": {
+            "loc": 15,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 0
+          },
+          "./src/latentpool/data/ingestion/archive_client.py": {
+            "loc": 32,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 0
+          },
+          "./src/latentpool/data/ingestion/hydrator.py": {
+            "loc": 22,
             "nosec": 0,
             "skipped_tests": 0,
             "SEVERITY.UNDEFINED": 0,
@@ -86,6 +125,19 @@
             "CONFIDENCE.MEDIUM": 0,
             "CONFIDENCE.HIGH": 0
           },
+          "./tests/configs/test_data_config.py": {
+            "loc": 27,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 6,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 6
+          },
           "./tests/conftest.py": {
             "loc": 14,
             "nosec": 0,
@@ -99,6 +151,32 @@
             "CONFIDENCE.MEDIUM": 0,
             "CONFIDENCE.HIGH": 0
           },
+          "./tests/data/ingestion/test_archive_client.py": {
+            "loc": 43,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 4,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 4
+          },
+          "./tests/data/ingestion/test_hydrator.py": {
+            "loc": 48,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 4,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 4
+          },
           "./tests/test_benchmarks.py": {
             "loc": 13,
             "nosec": 0,
@@ -111,6 +189,19 @@
             "CONFIDENCE.LOW": 0,
             "CONFIDENCE.MEDIUM": 0,
             "CONFIDENCE.HIGH": 0
+          },
+          "./tests/test_cli.py": {
+            "loc": 34,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 10,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 10
           },
           "./tests/test_gnn.py": {
             "loc": 70,
@@ -141,6 +232,822 @@
         }
       },
       "results": [
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert \"test_secret_key\" in config.rpc_url\n"
+                  },
+                  "startLine": 14
+                },
+                "artifactLocation": {
+                  "uri": "tests/configs/test_data_config.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n    assert \"test_secret_key\" in config.rpc_url\n    assert \"${ALCHEMY_API_KEY}\" not in config.rpc_url\n"
+                  },
+                  "endLine": 15,
+                  "startLine": 13
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert \"${ALCHEMY_API_KEY}\" not in config.rpc_url\n"
+                  },
+                  "startLine": 15
+                },
+                "artifactLocation": {
+                  "uri": "tests/configs/test_data_config.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert \"test_secret_key\" in config.rpc_url\n    assert \"${ALCHEMY_API_KEY}\" not in config.rpc_url\n\n"
+                  },
+                  "endLine": 16,
+                  "startLine": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert \"missing_key\" in config.rpc_url\n"
+                  },
+                  "startLine": 26
+                },
+                "artifactLocation": {
+                  "uri": "tests/configs/test_data_config.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n    assert \"missing_key\" in config.rpc_url\n\n"
+                  },
+                  "endLine": 27,
+                  "startLine": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert data_cfg.raw_dir == DEFAULT_RAW_DIR\n"
+                  },
+                  "startLine": 36
+                },
+                "artifactLocation": {
+                  "uri": "tests/configs/test_data_config.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n    assert data_cfg.raw_dir == DEFAULT_RAW_DIR\n    assert data_cfg.archive_node.max_rps == baseline.max_rps\n"
+                  },
+                  "endLine": 37,
+                  "startLine": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert data_cfg.archive_node.max_rps == baseline.max_rps\n"
+                  },
+                  "startLine": 37
+                },
+                "artifactLocation": {
+                  "uri": "tests/configs/test_data_config.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert data_cfg.raw_dir == DEFAULT_RAW_DIR\n    assert data_cfg.archive_node.max_rps == baseline.max_rps\n    assert data_cfg.archive_node.timeout == baseline.timeout\n"
+                  },
+                  "endLine": 38,
+                  "startLine": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert data_cfg.archive_node.timeout == baseline.timeout\n"
+                  },
+                  "startLine": 38
+                },
+                "artifactLocation": {
+                  "uri": "tests/configs/test_data_config.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert data_cfg.archive_node.max_rps == baseline.max_rps\n    assert data_cfg.archive_node.timeout == baseline.timeout\n"
+                  },
+                  "endLine": 38,
+                  "startLine": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert result == {\"status\": \"ok\"}\n"
+                  },
+                  "startLine": 23
+                },
+                "artifactLocation": {
+                  "uri": "tests/data/ingestion/test_archive_client.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n        assert result == {\"status\": \"ok\"}\n\n"
+                  },
+                  "endLine": 24,
+                  "startLine": 22
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert result == \"success\"\n"
+                  },
+                  "startLine": 45
+                },
+                "artifactLocation": {
+                  "uri": "tests/data/ingestion/test_archive_client.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n        assert result == \"success\"\n        assert route.call_count == EXPECTED_CALL_COUNT\n"
+                  },
+                  "endLine": 46,
+                  "startLine": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert route.call_count == EXPECTED_CALL_COUNT\n"
+                  },
+                  "startLine": 46
+                },
+                "artifactLocation": {
+                  "uri": "tests/data/ingestion/test_archive_client.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        assert result == \"success\"\n        assert route.call_count == EXPECTED_CALL_COUNT\n\n"
+                  },
+                  "endLine": 47,
+                  "startLine": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert result is None\n"
+                  },
+                  "startLine": 59
+                },
+                "artifactLocation": {
+                  "uri": "tests/data/ingestion/test_archive_client.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n        assert result is None\n"
+                  },
+                  "endLine": 59,
+                  "startLine": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert result is True\n"
+                  },
+                  "startLine": 28
+                },
+                "artifactLocation": {
+                  "uri": "tests/data/ingestion/test_hydrator.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n    assert result is True\n    mock_node_client.get_archive_data.assert_not_called()\n"
+                  },
+                  "endLine": 29,
+                  "startLine": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert result is True\n"
+                  },
+                  "startLine": 42
+                },
+                "artifactLocation": {
+                  "uri": "tests/data/ingestion/test_hydrator.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n        assert result is True\n        mock_write.assert_called_once_with(json.dumps(mock_data))\n"
+                  },
+                  "endLine": 43,
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert result is False\n"
+                  },
+                  "startLine": 56
+                },
+                "artifactLocation": {
+                  "uri": "tests/data/ingestion/test_hydrator.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n        assert result is False\n        mock_write.assert_not_called()\n"
+                  },
+                  "endLine": 57,
+                  "startLine": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert mock_single.call_count == EXPECTED_TOTAL_HYDRATIONS\n"
+                  },
+                  "startLine": 66
+                },
+                "artifactLocation": {
+                  "uri": "tests/data/ingestion/test_hydrator.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        await hydrator.run(tx_hashes)\n        assert mock_single.call_count == EXPECTED_TOTAL_HYDRATIONS\n"
+                  },
+                  "endLine": 66,
+                  "startLine": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert result.exit_code == 0\n"
+                  },
+                  "startLine": 11
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_cli.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    result = runner.invoke(app, [\"detect\"])\n    assert result.exit_code == 0\n    assert \"Analyzing block 19000000 with SAGE\" in result.stdout\n"
+                  },
+                  "endLine": 12,
+                  "startLine": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert \"Analyzing block 19000000 with SAGE\" in result.stdout\n"
+                  },
+                  "startLine": 12
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_cli.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert result.exit_code == 0\n    assert \"Analyzing block 19000000 with SAGE\" in result.stdout\n\n"
+                  },
+                  "endLine": 13,
+                  "startLine": 11
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert result.exit_code == 0\n"
+                  },
+                  "startLine": 17
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_cli.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    result = runner.invoke(app, [\"detect\", \"123456\", \"--model\", \"GAT\"])\n    assert result.exit_code == 0\n    assert \"Analyzing block 123456 with GAT\" in result.stdout\n"
+                  },
+                  "endLine": 18,
+                  "startLine": 16
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert \"Analyzing block 123456 with GAT\" in result.stdout\n"
+                  },
+                  "startLine": 18
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_cli.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert result.exit_code == 0\n    assert \"Analyzing block 123456 with GAT\" in result.stdout\n\n"
+                  },
+                  "endLine": 19,
+                  "startLine": 17
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert result.exit_code == 0\n"
+                  },
+                  "startLine": 27
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_cli.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n    assert result.exit_code == 0\n    assert \"Training GAT for 10 epochs\" in result.stdout\n"
+                  },
+                  "endLine": 28,
+                  "startLine": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert \"Training GAT for 10 epochs\" in result.stdout\n"
+                  },
+                  "startLine": 28
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_cli.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert result.exit_code == 0\n    assert \"Training GAT for 10 epochs\" in result.stdout\n\n"
+                  },
+                  "endLine": 29,
+                  "startLine": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert result.exit_code == 0\n"
+                  },
+                  "startLine": 33
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_cli.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    result = runner.invoke(app, [\"--help\"])\n    assert result.exit_code == 0\n    assert \"Detect MEV in a block (default: latest).\" in result.stdout\n"
+                  },
+                  "endLine": 34,
+                  "startLine": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert \"Detect MEV in a block (default: latest).\" in result.stdout\n"
+                  },
+                  "startLine": 34
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_cli.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert result.exit_code == 0\n    assert \"Detect MEV in a block (default: latest).\" in result.stdout\n\n"
+                  },
+                  "endLine": 35,
+                  "startLine": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert detect_block() == 0\n"
+                  },
+                  "startLine": 39
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_cli.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    \"\"\"Verify the helper functions and secure 100% coverage.\"\"\"\n    assert detect_block() == 0\n    assert train_model() == 0\n"
+                  },
+                  "endLine": 40,
+                  "startLine": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert train_model() == 0\n"
+                  },
+                  "startLine": 40
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_cli.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert detect_block() == 0\n    assert train_model() == 0\n\n"
+                  },
+                  "endLine": 41,
+                  "startLine": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
         {
           "message": {
             "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."

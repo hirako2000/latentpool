@@ -1,6 +1,10 @@
-import typer
 
-app = typer.Typer()
+import typer
+from dotenv import load_dotenv
+
+load_dotenv()
+
+app = typer.Typer(help="LatentPool: MEV Detection using GNNs")
 
 
 @app.command()
