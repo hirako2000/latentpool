@@ -46,27 +46,25 @@ LatentPool detects Maximum Extractable Value (MEV) by analyzing transaction grap
 
 
 ## 📑 Table of Contents
-- [✨ Features](#✨-features)
-- [🚀 Quick Start](#🚀-quick-start)
-- [🛠 How It Works](#🛠-how-it-works)
-- [📊 Performance Benchmark](#📊-performance-benchmark)
-- [🏗 Project Structure](#🏗-project-structure)
+- [✨ Features](#-features)
+- [🚀 Quick Start](#-quick-start)
+- [🛠 How It Works](#-how-it-works)
+- [📊 Performance Benchmark](#-performance-benchmark)
+- [🏗 Project Structure](#-project-structure)
 - [🥶 TODOs](#🥶-todos)
-- [💻 Development](#💻-howto-development)
-- [🤓 Worklog](#🤓-worklog)
-- [⚖️ License](#⚖️-license)
+- [💻 Development](#-howto-development)
+- [🤓 Worklog](#-worklog)
+- [⚖️ License](#-license)
 
 ---
 
 ## ✨ Features
 
-* **⚡ ABI-Free Detection:** Identifies MEV via latent graph topology—no contract knowledge required.
+* Identifies MEV via latent graph topology.
 * **🧠 GNNs:** Built-in support for [GraphSAGE](https://snap.stanford.edu/graphsage/), [GAT](https://arxiv.org/abs/1710.10903), and **GCN** architectures.
 * **🚀 Modern dev flow:** Powered by `uv` for lightning-fast environment management and `Ruff` for linting.
-* **🍎 Apple Silicon Optimized:** Native **MPS (Metal Performance Shaders)** acceleration for M-series.
-* **📦 Grade:** Typed with `msgspec` for high-performance JS decoding and `pytest` for reliability, but experimental project.
-
----
+* **🍎 Apple Silicon Optimized:** Native **MPS (Metal Performance Shaders)** acceleration for M-series. CUDA support planned.
+* Typed with `msgspec` for high-performance JS decoding and `pytest` for reliability, but experimental project.
 
 ## 🚀 Quick Start
 
@@ -91,8 +89,6 @@ uv run latent detect
 # Monitor mempool in real-time ?
 see TODOs further down
 ```
-
----
 
 ## 🛠 How It Works
 
