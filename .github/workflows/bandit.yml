@@ -38,13 +38,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Pytest & Coverage
-        run: uv run pytest --cov=src/latentpool --cov-report=json
+        run: uv run pytest --cov=src/latentpool --cov-report=json:coverage.json
 
       - name: Generate Badge
         uses: jaywcjlove/coverage-badges-cli@main
         with:
           source: coverage.json
           output: coverage.svg
+          jsonPath: totals.percent_covered
 
       - name: Deploy Badge
         uses: peaceiris/actions-gh-pages@v3
