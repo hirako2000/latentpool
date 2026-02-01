@@ -40,12 +40,19 @@ jobs:
       - name: Pytest & Coverage
         run: uv run pytest --cov=src/latentpool --cov-report=json:coverage.json
 
-      - name: Generate Badge
-        uses: jaywcjlove/coverage-badges-cli@main
-        with:
-          source: coverage.json
-          output: coverage.svg
-          jsonPath: totals.percent_covered
+      - name: Generate Coverage Badge
+        run: |
+          # Round the percentage to the nearest integer
+          PERCENT=$(jq '.totals.percent_covered | round' coverage.json)
+          
+          # Choose color: brightgreen for 100, green > 90, yellow > 70, otherwise red
+          if [ "$PERCENT" -eq 100 ]; then COLOR="brightgreen";
+          elif [ "$PERCENT" -gt 90 ]; then COLOR="green";
+          elif [ "$PERCENT" -gt 70 ]; then COLOR="yellow";
+          else COLOR="red"; fi
+
+          # Download the badge from Shields.io
+          curl -s "https://img.shields.io/badge/coverage-${PERCENT}%25-${COLOR}" > coverage.svg
 
       - name: Deploy Badge
         uses: peaceiris/actions-gh-pages@v3
@@ -53,3 +60,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
           publish_branch: badges
+          keep_files: true
