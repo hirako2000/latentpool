@@ -1,0 +1,795 @@
+{
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Bandit",
+          "rules": [
+            {
+              "id": "B101",
+              "name": "assert_used",
+              "helpUri": "https://bandit.readthedocs.io/en/1.9.3/plugins/b101_assert_used.html"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2026-02-01T00:12:34Z"
+        }
+      ],
+      "properties": {
+        "metrics": {
+          "_totals": {
+            "loc": 358,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "SEVERITY.LOW": 19,
+            "CONFIDENCE.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.HIGH": 19
+          },
+          "./main.py": {
+            "loc": 4,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 0
+          },
+          "./src/latentpool/cli.py": {
+            "loc": 28,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 0
+          },
+          "./src/latentpool/gnn.py": {
+            "loc": 68,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 0
+          },
+          "./src/latentpool/provider.py": {
+            "loc": 66,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 0
+          },
+          "./tests/conftest.py": {
+            "loc": 14,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 0
+          },
+          "./tests/test_benchmarks.py": {
+            "loc": 13,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 0,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 0
+          },
+          "./tests/test_gnn.py": {
+            "loc": 70,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 11,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 11
+          },
+          "./tests/test_provider.py": {
+            "loc": 95,
+            "nosec": 0,
+            "skipped_tests": 0,
+            "SEVERITY.UNDEFINED": 0,
+            "SEVERITY.LOW": 8,
+            "SEVERITY.MEDIUM": 0,
+            "SEVERITY.HIGH": 0,
+            "CONFIDENCE.UNDEFINED": 0,
+            "CONFIDENCE.LOW": 0,
+            "CONFIDENCE.MEDIUM": 0,
+            "CONFIDENCE.HIGH": 8
+          }
+        }
+      },
+      "results": [
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert trace.action.from_address == \"0x1234567890123456789012345678901234567890\"\n"
+                  },
+                  "startLine": 36
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_gnn.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n    assert trace.action.from_address == \"0x1234567890123456789012345678901234567890\"\n    assert trace.action.call_type == \"call\"\n"
+                  },
+                  "endLine": 37,
+                  "startLine": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert trace.action.call_type == \"call\"\n"
+                  },
+                  "startLine": 37
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_gnn.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert trace.action.from_address == \"0x1234567890123456789012345678901234567890\"\n    assert trace.action.call_type == \"call\"\n    assert trace.result is not None\n"
+                  },
+                  "endLine": 38,
+                  "startLine": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert trace.result is not None\n"
+                  },
+                  "startLine": 38
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_gnn.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert trace.action.call_type == \"call\"\n    assert trace.result is not None\n    assert trace.result.gas_used == \"0x5208\"\n"
+                  },
+                  "endLine": 39,
+                  "startLine": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert trace.result.gas_used == \"0x5208\"\n"
+                  },
+                  "startLine": 39
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_gnn.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert trace.result is not None\n    assert trace.result.gas_used == \"0x5208\"\n    assert trace.trace_address == []\n"
+                  },
+                  "endLine": 40,
+                  "startLine": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert trace.trace_address == []\n"
+                  },
+                  "startLine": 40
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_gnn.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert trace.result.gas_used == \"0x5208\"\n    assert trace.trace_address == []\n\n"
+                  },
+                  "endLine": 41,
+                  "startLine": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert output.device.type == device.type\n"
+                  },
+                  "startLine": 63
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_gnn.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    # Verify execution on the detected device\n    assert output.device.type == device.type\n    assert output.shape == (1, output_dim)\n"
+                  },
+                  "endLine": 64,
+                  "startLine": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert output.shape == (1, output_dim)\n"
+                  },
+                  "startLine": 64
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_gnn.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert output.device.type == device.type\n    assert output.shape == (1, output_dim)\n    assert not torch.isnan(output).any()\n"
+                  },
+                  "endLine": 65,
+                  "startLine": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "    assert not torch.isnan(output).any()\n"
+                  },
+                  "startLine": 65
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_gnn.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "    assert output.shape == (1, output_dim)\n    assert not torch.isnan(output).any()\n\n"
+                  },
+                  "endLine": 66,
+                  "startLine": 64
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert model._get_best_device().type == \"mps\" # type: ignore[reportPrivateUsage]\n"
+                  },
+                  "startLine": 77
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_gnn.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        model = TransactionGraphModel(1, 1, 1)\n        assert model._get_best_device().type == \"mps\" # type: ignore[reportPrivateUsage]\n\n"
+                  },
+                  "endLine": 78,
+                  "startLine": 76
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert model._get_best_device().type == \"cuda\" # type: ignore[reportPrivateUsage]\n"
+                  },
+                  "startLine": 85
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_gnn.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        model = TransactionGraphModel(1, 1, 1)\n        assert model._get_best_device().type == \"cuda\" # type: ignore[reportPrivateUsage]\n\n"
+                  },
+                  "endLine": 86,
+                  "startLine": 84
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert model._get_best_device().type == \"cpu\" # type: ignore[reportPrivateUsage]\n"
+                  },
+                  "startLine": 93
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_gnn.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        model = TransactionGraphModel(1, 1, 1)\n        assert model._get_best_device().type == \"cpu\" # type: ignore[reportPrivateUsage]\n"
+                  },
+                  "endLine": 93,
+                  "startLine": 92
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert len(traces) == 1\n"
+                  },
+                  "startLine": 42
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_provider.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n        assert len(traces) == 1\n        assert traces[0].action.from_address == \"0x123\"\n"
+                  },
+                  "endLine": 43,
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert traces[0].action.from_address == \"0x123\"\n"
+                  },
+                  "startLine": 43
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_provider.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        assert len(traces) == 1\n        assert traces[0].action.from_address == \"0x123\"\n\n"
+                  },
+                  "endLine": 44,
+                  "startLine": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert request_body[\"params\"] == [\"0x3039\"]\n"
+                  },
+                  "startLine": 83
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_provider.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        request_body: Dict[str, Any] = msgspec.json.decode(route.calls.last.request.content)\n        assert request_body[\"params\"] == [\"0x3039\"]\n\n"
+                  },
+                  "endLine": 84,
+                  "startLine": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert traces == []\n"
+                  },
+                  "startLine": 101
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_provider.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "\n        assert traces == []\n\n"
+                  },
+                  "endLine": 102,
+                  "startLine": 100
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert id(provider.client) == initial_client_id\n"
+                  },
+                  "startLine": 118
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_provider.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        # Intermediate check: ensure it's still open and the same instance\n        assert id(provider.client) == initial_client_id\n        assert provider.client.is_closed is False\n"
+                  },
+                  "endLine": 119,
+                  "startLine": 117
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert provider.client.is_closed is False\n"
+                  },
+                  "startLine": 119
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_provider.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        assert id(provider.client) == initial_client_id\n        assert provider.client.is_closed is False\n\n"
+                  },
+                  "endLine": 120,
+                  "startLine": 118
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert id(provider.client) == initial_client_id\n"
+                  },
+                  "startLine": 124
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_provider.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        # id() must still match, proving a new AsyncClient was never instantiated\n        assert id(provider.client) == initial_client_id\n        assert provider.client.is_closed is False\n"
+                  },
+                  "endLine": 125,
+                  "startLine": 123
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        },
+        {
+          "message": {
+            "text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code."
+          },
+          "level": "note",
+          "locations": [
+            {
+              "physicalLocation": {
+                "region": {
+                  "snippet": {
+                    "text": "        assert provider.client.is_closed is False\n"
+                  },
+                  "startLine": 125
+                },
+                "artifactLocation": {
+                  "uri": "tests/test_provider.py"
+                },
+                "contextRegion": {
+                  "snippet": {
+                    "text": "        assert id(provider.client) == initial_client_id\n        assert provider.client.is_closed is False\n"
+                  },
+                  "endLine": 125,
+                  "startLine": 124
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_confidence": "HIGH",
+            "issue_severity": "LOW"
+          },
+          "ruleId": "B101",
+          "ruleIndex": 0
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json"
+}
