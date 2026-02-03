@@ -9,7 +9,9 @@ The goal is to produce a model fast enough for inference to be sub seconds, and 
 Following the **Medallion Architecture** to incrementally increase data quality and structure. This ensures an _Immutable Source of Truth"_ (Bronze) while delivering _Model-Ready_ features (Gold).
 
 ### Bronze (Raw)
-Raw JSON-RPC responses (traces/receipts).
+- Source: eth_getTransactionReceipt
+- Format: Raw JSON objects containing the logs array, gas usage, and status.
+
 Blockchain nodes are expensive/slow. We fetch once, store forever.
 
 ### Silver (Validated)
@@ -19,6 +21,13 @@ _Garbage in, garbage out_. Cleaning ensures the model learns MEV patterns, not R
 ### Gold (Features)
 
 Represents the final articfacts: Feature vectors and PyTorch Geometric `Data` objects.
+
+## ⚡ The Trace vs. Receipt Pivot
+Initially, the pipeline was designed to use debug_traceTransaction to capture internal state changes. To optimize inference latency, we opted for a Log-Based (Receipt) Ingestion model.
+
+Rationale: eth_getTransactionReceipt is more broadly available and provides structured logs (Swaps, Transfers) which contain 90% of the signal needed for MEV detection.
+
+Performance: Ingestion latency dropped from ~2s/tx (tracing) to <100ms/tx (receipts), enabling near real-time mempool analysis.
 
 ## Ingestion with Version Control
 
@@ -35,10 +44,11 @@ The `Transformation` layer converts EVM state changes into a fixed-width vector 
 
 | Key | Feature | Rationale |
 | --- | --- | --- |
-| 1-3 | **Profit/Loss/Neutral** | Categorical flags (-1, 0, 1) based on net balance change per token. |
-| 4-7 | **Role Booleans** | Is the node the `msg.sender`, the `to` address, or a known `Block Builder`? |
-| 8-11 | **Activity Metrics** | Number of swaps, volume percentage, and "Token Variety" in the TX. |
-| 12-14 | **Structural Metadata** | EOA vs. Contract (determined via `getCode`), and "Contract Age" (if available). |
+| 1-3 | **Flow Dynamics** | Net balance changes of the `mev_taker` across the transaction's log sequence. |
+| 4-7 | **Event Topology** | Count of `Swap`, `Transfer`, and `Sync` events per contract node. |
+| 8-11 | **Value Metrics** | Volume and "Gas-to-Value" ratio derived from receipt `gasUsed`. |
+| 12-14 | **Address Metadata** | Node degree within the transaction (how many pools a contract interacted with). |
+
 
 ## Visualizations & Observability
 

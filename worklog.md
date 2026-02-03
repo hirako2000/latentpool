@@ -94,3 +94,42 @@ I didn't test any of these, added a full suite though to validate the logic is c
 Now have a data_config.py file, managed .env file as I will need to hook the data preparation process with Alchemy or infura.
 
 Added a CI workflow to perform static code analysis and run all the tests in a separate environment.
+
+### Silver analysis and 'normal' transactions
+
+*2026-02-03*: Session 5
+
+The hardest sessions, it's in fact two. I had worked on this yesterday until late.
+and all day today...
+
+The hydration logic worked but was missing non attack transactions. The training data needs more than just MEVs; Added in "Normal" transaction samples to serve as negative labels, ensuring the model doesn't just learn to flag every high-value swap.
+
+Revised the `IngestionCoordinator` to perform **Negative Sampling**. The hydrator now fetches MEV receipts from labeled CSVs and immediately samples "sibling" transactions from the same blocks. This creates a balanced 1:1 ratio for the 3-class classification (Arbitrage vs. Sandwich vs. Normal).
+
+Built a suite of visualizations to validate the Silver layer before it hits the Gold (labeled) joiner.
+
+added a document for these: [silver-viz.md](./docs/silver-viz.md)
+
+Also Refactored the CLI into a nested hierarchy (`data`, `viz`, `silver`) to improve DX.  100% code coverage is a pain, but it helped me catch a few issues.
+
+_Data Pipeline_
+
+```text
+    [ Labeled CSVs (MEV) ]
+           |
+           v
+    [ IngestionCoordinator ] <------- [ Alchemy / Archive ]
+           |                              |
+           | (Step 1: MEV Hydration)      | (Step 2: Negative Sampling)
+           |  Target: 1:1 Ratio           |  Source: Sibling Blocks
+           v                              v
+    [ Silver Layer (edges.parquet) ] <------- [ Diagnostics ]
+           |                                     |-- Structure (Outliers)
+           | (Join & Label)                      |-- Temporal (Density)
+           v                                     |-- Diversity (Hubs)
+    [ Gold Training Set ] <------- TODO
+           |
+           | (Graph Construction) <------- TODO
+           v
+    [ PyG Tensors / Graphs ] <------- TODO
+```
