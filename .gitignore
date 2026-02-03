@@ -12,11 +12,18 @@ wheels/
 coverage.json
 .benchmarks/
 
+# data
+
+
+# Viz
+visualizations
+
 # DVC local-only data and cache
 /data/raw/
 /data/processed/
 .dvc/cache/
 .dvc/tmp/
+data/labeled*
 
 # Local uv cache/settings
 .uv/

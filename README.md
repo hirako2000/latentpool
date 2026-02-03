@@ -94,8 +94,8 @@ see TODOs further down
 
 LatentPool bypasses traditional simulation-based detection by treating the mempool as a dynamic graph.
 
-1. Graph Construction: Transactions are converted into directed graphs of state changes.
-2. Feature Vectorization:** Nodes are embedded with 14 key features capturing value flow.
+1. Graph Construction: Transactions are converted into directed graphs derived from EVM event logs (Receipts).
+2. Feature Vectorization:** Nodes (contracts/EOAs) are embedded with 14 key features capturing the flow of tokens and interactions.
 3. GNN Inference: GraphSAGE layers aggregate neighborhood information to flag suspicious clusters.
 4. Hardware Acceleration: Tensors are automatically routed to **MPS (Metal)** (for now) or CUDA for sub-max latency.
 
@@ -140,6 +140,9 @@ Using a somewhat _Strict_ toolchain to ensure code reliability:
 provisional...
 
 ```bash
+data/
+├── raw/
+│   └── traces/    # Raw JSON-RPC eth_getTransactionReceipt responses
 src/latentpool/
 ├── cli.py         # Typer-based Command Line Interface
 ├── provider.py    # Execution layer node

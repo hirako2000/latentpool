@@ -1,6 +1,5 @@
 import asyncio
-from http import HTTPStatus
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 import httpx
 
@@ -15,27 +14,29 @@ class ArchiveNodeClient:
 
     async def get_archive_data(self, tx_hash: str) -> Optional[Dict[str, Any]]:
         async with self.semaphore:
-            return await self._fetch_with_backoff(tx_hash)
+            return await self._fetch_with_backoff("eth_getTransactionReceipt", [tx_hash])
 
-    async def _fetch_with_backoff(self, tx_hash: str) -> Optional[Dict[str, Any]]:
+    async def get_block_tx_hashes(self, block_number: int) -> List[str]:
+        """Fetch all sibling hashes in a block to find 'Normal' transactions."""
+        async with self.semaphore:
+            result = await self._fetch_with_backoff("eth_getBlockByNumber", [hex(block_number), False])
+            return result.get("transactions", []) if result else []
+
+    async def _fetch_with_backoff(self, method: str, params: List[Any]) -> Optional[Dict[str, Any]]:
+        BAD_REQUEST = 400
         for attempt in range(self.config.retry_count):
             try:
-                payload = {
-                    "jsonrpc": "2.0", "id": 1,
-                    "method": "debug_traceTransaction",
-                    "params": [tx_hash, {"tracer": "callTracer"}]
-                }
+                payload = {"jsonrpc": "2.0", "id": 1, "method": method, "params": params}
                 resp = await self.client.post(self.config.rpc_url, json=payload)
 
-                if resp.status_code == HTTPStatus.TOO_MANY_REQUESTS:
-                    wait_time = (2**attempt) * self.config.initial_backoff
-                    await asyncio.sleep(wait_time)
-                    continue
+                if resp.status_code == BAD_REQUEST:
+                    return None
 
                 resp.raise_for_status()
                 return resp.json().get("result")
-            except (httpx.HTTPError, Exception):
-                # we've exhausted retries, just exit
+            except Exception:
                 if attempt == self.config.retry_count - 1:
                     break
+
+                await asyncio.sleep((2**attempt) * self.config.initial_backoff)
         return None

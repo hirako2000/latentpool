@@ -11,7 +11,6 @@ from latentpool.data.ingestion.hydrator import Hydrator
 
 @pytest.fixture
 def mock_node_client() -> MagicMock:
-    """Explicitly typing the mock to satisfy Pyright."""
     return MagicMock(spec=ArchiveNodeClient)
 
 @pytest.fixture
