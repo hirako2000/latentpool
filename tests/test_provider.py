@@ -114,7 +114,6 @@ async def test_node_provider_connection_persistence(url: str, provider: NodeProv
 
         await provider.get_block_traces(1)
 
-        # Intermediate check: ensure it's still open and the same instance
         assert id(provider.client) == initial_client_id
         assert provider.client.is_closed is False
 

@@ -66,7 +66,6 @@ def test_print_aggregates_unlabeled_warning(mock_save: MagicMock, mock_data_path
     out = capsys.readouterr().out
 
     # We have 3 unique txs in Silver (A, B, C) and 2 in Gold (A, B)
-    # So we expect exactly 1 unlabeled
     assert "⚠️  Unlabeled:" in out
     assert "1" in out
     assert "(Pending Labeler run)" in out
@@ -77,26 +76,21 @@ def test_print_aggregates(mock_save: MagicMock, mock_data_paths: Tuple[str, str]
     silver_p, gold_p = mock_data_paths
     validator = IngestionValidator(silver_p)
 
-    # Test without gold
     validator.print_aggregates()
     out_no_gold = capsys.readouterr().out
-    # EXPECTED_SILVER_EDGES is 3 in your original, which still holds with my fixture update
     assert "Total Transfers (Edges): 3" in out_no_gold
     assert "Gold layer not found" in out_no_gold
 
-    # Test with gold
     validator.print_aggregates(gold_path=gold_p)
     out_gold = capsys.readouterr().out
 
     assert "LABEL DISTRIBUTION" in out_gold
-    # Check lines exist without strictly enforcing the exact number of spaces
     lines = [line.strip() for line in out_gold.split("\n")]
     assert any("Arbitrage:" in line and "1" in line for line in lines)
     assert any("Normal:" in line and "1" in line for line in lines)
 
 @patch("matplotlib.pyplot.savefig")
 def test_generate_transformation_plots(mock_save: MagicMock, mock_data_paths: Tuple[str, str]) -> None:
-    """Ensures transformation plots are created in the correct directory."""
     silver_p, _ = mock_data_paths
     validator = IngestionValidator(silver_p)
 
@@ -111,7 +105,7 @@ def test_generate_transformation_plots(mock_save: MagicMock, mock_data_paths: Tu
 
 @patch("matplotlib.pyplot.savefig")
 def test_generate_gold_plots(mock_save: MagicMock, mock_data_paths: Tuple[str, str]) -> None:
-    """Ensures labeling distribution plots execute correctly."""
+    """labeling distribution plots"""
     silver_p, gold_p = mock_data_paths
     validator = IngestionValidator(silver_p)
 
@@ -123,7 +117,7 @@ def test_generate_gold_plots(mock_save: MagicMock, mock_data_paths: Tuple[str, s
 
 @patch("matplotlib.pyplot.savefig")
 def test_generate_tensor_stats(mock_save: MagicMock, tmp_path: Path) -> None:
-    """Tests geometric complexity plotting with mocked .pt files."""
+    """geometric complexity plotting with mocked .pt files."""
     graphs_dir = tmp_path / "graphs"
     graphs_dir.mkdir()
 
@@ -146,7 +140,6 @@ def test_generate_tensor_stats(mock_save: MagicMock, tmp_path: Path) -> None:
 
 @patch("matplotlib.pyplot.savefig")
 def test_generate_tensor_stats_empty_or_error(mock_save: MagicMock, tmp_path: Path, caplog: Any) -> None:
-    """Covers empty directory and failed load branches."""
     dummy_p = tmp_path / SILVER_FILE
     df_dummy: Any = pd.DataFrame({"tx_hash": [], "token": []})
     df_dummy.to_parquet(dummy_p)

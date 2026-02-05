@@ -25,7 +25,6 @@ TOKEN_LABEL_SLICE = 6
 
 @pytest.fixture
 def explorer_setup(tmp_path: Path) -> Tuple[str, GraphExplorer]:
-    """Creates a temporary parquet and initializes the explorer."""
     path = tmp_path / PARQUET_FILE
     df: Any = pd.DataFrame({
         "tx_hash": [TX_HASH_VALID],
@@ -43,7 +42,7 @@ def test_generate_tx_graph_success(
     explorer_setup: Tuple[str, GraphExplorer],
     capsys: Any
 ) -> None:
-    """Verifies graph generation, edge labeling, and pyvis integration."""
+    """edge labeling, and pyvis integration."""
     _, explorer = explorer_setup
     mock_net_instance = mock_network_class.return_value
 
@@ -56,7 +55,7 @@ def test_generate_tx_graph_success(
     assert generated_graph.number_of_nodes() == EXPECTED_NODES
     assert generated_graph.number_of_edges() == EXPECTED_EDGES
 
-    # edge attributes (labels and titles)
+    # edges
     edge_data = list(generated_graph.edges(data=True))[0][2]
     expected_label = f"Token: {ADDR_CONTRACT[:TOKEN_LABEL_SLICE]}..."
     assert edge_data["label"] == expected_label
@@ -68,7 +67,6 @@ def test_generate_tx_graph_success(
     assert f"Visualization saved to {OUTPUT_HTML}" in captured.out
 
 def test_generate_tx_graph_no_data(explorer_setup: Tuple[str, GraphExplorer], capsys: Any) -> None:
-    """Covers the branch where a tx_hash does not exist in the dataframe."""
     _, explorer = explorer_setup
 
     explorer.generate_tx_graph(TX_HASH_EMPTY)
@@ -81,7 +79,7 @@ def test_generate_tx_graph_case_insensitivity(
     mock_network_class: MagicMock,
     explorer_setup: Tuple[str, GraphExplorer]
 ) -> None:
-    """Ensures hashes are handled case-insensitively."""
+    """handled case-insensitively."""
     _, explorer = explorer_setup
 
     explorer.generate_tx_graph(TX_HASH_VALID.upper())
@@ -91,7 +89,6 @@ def test_generate_tx_graph_case_insensitivity(
     assert mock_net_instance.from_nx.called
 
 def test_init_loading(explorer_setup: Tuple[str, GraphExplorer]) -> None:
-    """Verifies the dataframe is loaded correctly on init."""
     _, explorer = explorer_setup
     assert not explorer.df.empty
     assert explorer.df["tx_hash"].iloc[0] == TX_HASH_VALID

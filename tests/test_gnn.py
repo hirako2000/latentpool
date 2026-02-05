@@ -59,7 +59,7 @@ def test_gnn_forward_pass():
 
     output = model(x, edge_index, batch)
 
-    # Verify execution on the detected device
+    # Verify execution is on the detected device
     assert output.device.type == device.type
     assert output.shape == (1, output_dim)
     assert not torch.isnan(output).any()
@@ -71,7 +71,7 @@ def test_gnn_device_selection_mps(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(torch.backends.mps, "is_available", lambda: True)
     monkeypatch.setattr(torch.cuda, "is_available", lambda: False)
 
-    # We mock __init__ so it doesn't call self.to()
+    # mock __init__ so it doesn't call self.to()
     with patch.object(TransactionGraphModel, "__init__", return_value=None):
         model = TransactionGraphModel(1, 1, 1)
         assert model._get_best_device().type == "mps" # type: ignore[reportPrivateUsage]
