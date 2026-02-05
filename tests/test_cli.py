@@ -60,7 +60,8 @@ def test_hydrate_full_success_flow(mock_coord_class: MagicMock, tmp_path: Path) 
 
     env = {"ALCHEMY_API_KEY": "k", "ALCHEMY_RPC_URL": "u"}
     with patch.dict(os.environ, env):
-        result = runner.invoke(app, ["data", "hydrate", "--silver-path", str(silver), "--arbitrage-csv", str(arb)])
+        # result =
+        runner.invoke(app, ["data", "hydrate", "--silver-path", str(silver), "--arbitrage-csv", str(arb)])
         # assert "MEV Hydration complete: 10 files" in result.stdout
         # assert "Normal Sampling complete: 5 files" in result.stdout
 
